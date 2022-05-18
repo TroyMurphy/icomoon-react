@@ -1,4 +1,5 @@
 import React from "react";
+import "./IcomoonReact.css"
 
 export const iconList = iconSet => {
   const list: Array<string> = [];
@@ -35,21 +36,25 @@ function getSvg(icon, iconSet, styles, size, className, rest) {
   return null;
 }
 
-export const IcomoonReact: React.FC<{
-  color?: string;
-  size?: string | number;
-  icon: string;
+export interface IcomoonReactProps {
   iconSet: Object;
+  icon: string;
+  color?: string;
   className?: string;
+  size?: string | number;
   style?: React.CSSProperties;
+  spinning?: boolean;
   [x: string]: any;
-}> = props => {
+}
+
+export const IcomoonReact: React.FC<IcomoonReactProps> = props => {
   const {
+    className = "",
     color,
-    size = "100%",
     icon,
     iconSet,
-    className = "",
+    size = "100%",
+    spinning = false;
     style = {},
     ...rest
   } = props;
@@ -65,7 +70,7 @@ export const IcomoonReact: React.FC<{
     }
   };
 
-  return getSvg(icon, iconSet, styles, size, className, rest);
+  return <div className={`${spinning ? "spin" : ""}`}>{getSvg(icon, iconSet, styles, size, className, rest)</div>;
 };
 
 IcomoonReact.displayName = `IcomoonReact`;
